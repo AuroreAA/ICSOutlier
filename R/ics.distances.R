@@ -10,12 +10,12 @@ function(object, index = NULL)
 
 #' Squared ICS Distances for Invariant Coordinates
 #'
-#' @param object object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions.
+#' @param object object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.
 #' @param index vector of integers indicating the indices of the components to select.
 #'
 #'
 #' @details
-#' For outlier detection, the squared ICS distances can be used as a measure of outlierness. Denote as \eqn{Z} the invariant coordinates centered with the location estimate specified in \code{S1} (for details see \code{\link{ics2}}). Let \eqn{Z_k} be the \eqn{k} components of \eqn{Z} selected by \code{index}, then the ICS distance of the observation \eqn{i}  is defined as:     \deqn{ICSD^2(x_i,k) = || Z_k||^2.}{ICSD^2(x_i,k) = || Z_k||^2.}
+#' For outlier detection, the squared ICS distances can be used as a measure of outlierness. Denote as \eqn{Z} the invariant coordinates centered with the location estimate specified in \code{S1} (for details see [ICS()][ICS::ICS()]). Let \eqn{Z_k} be the \eqn{k} components of \eqn{Z} selected by \code{index}, then the ICS distance of the observation \eqn{i}  is defined as:     \deqn{ICSD^2(x_i,k) = || Z_k||^2.}{ICSD^2(x_i,k) = || Z_k||^2.}
 #' 
 #' Note that if all components are selected, the ICS distances are equivalent to the Mahalanobis distances computed with respect of the first scatter and associated location specified in \code{S1}. 
 #' 
@@ -26,7 +26,7 @@ function(object, index = NULL)
 
 #' @author Aurore Archimbaud and Klaus Nordhausen
 #' 
-#' @seealso [ICS::ICS()], [mahalanobis()]
+#' @seealso [ICS()][ICS::ICS()], [mahalanobis()]
 #' @export
 #'
 #' @examples

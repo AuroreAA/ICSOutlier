@@ -207,10 +207,10 @@ test_that("ics.outlier and ICS_outlier - simulation test", {
 test_that("ICS_outlier - error if not functions", {
   X <- iris[,-5]
   expect_error(ICS_outlier(X, S1 = ICS_cov, S2 = cov4(X)), 
-               "S2 must be a specified as a function")
+               "S2 must be specified as a function")
   
   expect_error(ICS_outlier(X, S1 = cov(X), S2 = ICS_cov4), 
-               "S1 must be a specified as a function")
+               "S1 must be specified as a function")
   
 })
 

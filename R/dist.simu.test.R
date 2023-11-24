@@ -118,7 +118,7 @@ dist.simu.test <-
 #' 
 #' Computes the cut-off values for the identification of the outliers based on the squared ICS distances. It uses simulations under a multivariate standard normal model for a specific data setup and scatters combination.
 #'
-#' @param object object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions. 
+#' @param object object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions. 
 #' The sample size and the dimension of interest are also obtained from the object.
 #' @param S1 an object of class \code{"ICS_scatter"} or a function that 
 #' contains the location vector and scatter matrix as \code{location} and \code{scatter} components.
@@ -137,7 +137,7 @@ dist.simu.test <-
 #'
 #'
 #' @details 
-#' The function extracts basically the dimension of the data from the \code{ics2} object and simulates \code{m} times, from a multivariate standard normal distribution, the squared ICS distances with the components specified in \code{index}. The resulting value is then the mean of the \code{m} correponding quantiles of these distances  at level 1-\code{level}.
+#' The function extracts basically the dimension of the data from the \code{"ICS"} object and simulates \code{m} times, from a multivariate standard normal distribution, the squared ICS distances with the components specified in \code{index}. The resulting value is then the mean of the \code{m} correponding quantiles of these distances  at level 1-\code{level}.
 #' 
 #' Note that depending on the data size and scatters used this can take a while and so it is more efficient to parallelize computations.
 #' 
@@ -150,7 +150,7 @@ dist.simu.test <-
 
 #' @author Aurore Archimbaud and Klaus Nordhausen
 #' 
-#' @seealso [ICS::ICS()], [ics_distances()]
+#' @seealso [ICS()][ICS::ICS()], [ics_distances()]
 #' 
 #' @import parallel
 #' @importFrom mvtnorm rmvnorm

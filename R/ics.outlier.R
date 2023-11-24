@@ -63,7 +63,7 @@ ics.outlier <-
 
 #' Outlier Detection Using ICS
 #' 
-#' In a multivariate framework outlier(s) are detected using ICS. The function performs [ICS::ICS()] and decides automatically about the number of invariant components to use to search for the outliers and the number of outliers detected on these components. Currently the function is restricted to the case of searching outliers only on the first components. 
+#' In a multivariate framework outlier(s) are detected using ICS. The function performs [ICS()][ICS::ICS()] and decides automatically about the number of invariant components to use to search for the outliers and the number of outliers detected on these components. Currently the function is restricted to the case of searching outliers only on the first components. 
 #'
 #'
 #' @param X a numeric matrix or data frame containing the data to be
@@ -96,9 +96,11 @@ ics.outlier <-
 #' 
 #' This function performs these three steps automatically:
 #' 
-#' (i). For choosing the components of interest two methods are proposed: \code{"norm_test"} based on some marginal normality tests (see details in \code{\link{comp_norm_test}}) or \code{"simulation"} based on a parallel analysis (see details in \code{\link{comp_simu_test}}). These two approaches lie on the intrinsic property of ICS in case of a small proportion of outliers with the choice of S1 "more robust" than S2, which ensures to find outliers on the first components. Indeed  when using \code{S1 = ICS_cov} and \code{S2 = ICS_cov4}, the Invariant Coordinates are ordered according to their classical Pearson kurtosis values in decreasing order. The information to find the outliers should be then contained in the first k non-normal directions.
-#' (ii). Then the ICS distances are computed as the Euclidean distances on the selected k centered components \eqn{Z_k}. 
-#' (iii). Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
+#' - For choosing the components of interest two methods are proposed: \code{"norm_test"} based on some marginal normality tests (see details in \code{\link{comp_norm_test}}) or \code{"simulation"} based on a parallel analysis (see details in \code{\link{comp_simu_test}}). These two approaches lie on the intrinsic property of ICS in case of a small proportion of outliers with the choice of S1 "more robust" than S2, which ensures to find outliers on the first components. Indeed  when using \code{S1 = ICS_cov} and \code{S2 = ICS_cov4}, the Invariant Coordinates are ordered according to their classical Pearson kurtosis values in decreasing order. The information to find the outliers should be then contained in the first k non-normal directions.
+#' 
+#' - Then the ICS distances are computed as the Euclidean distances on the selected k centered components \eqn{Z_k}. 
+#' 
+#' - Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
 #' 
 #' As a rule of thumb, the percentage of contamination should be limited to 10\% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
 #' 
@@ -130,7 +132,7 @@ ics.outlier <-
 
 #' @author Aurore Archimbaud and Klaus Nordhausen
 #' 
-#' @seealso [ICS::ICS()], [comp_norm_test()], [comp_simu_test()],
+#' @seealso [ICS()][ICS::ICS()], [comp_norm_test()], [comp_simu_test()],
 #' [dist_simu_test()] and 
 #' [print()], [plot()],[summary()] methods
 #'
@@ -207,8 +209,8 @@ ICS_outlier <- function(X,
   
   # S1 <- get(object$S1_label)
   # S2 <- get(object$S2_label)
-  if (!is.function(S1)) stop(paste("S1 must be a specified as a function"))
-  if (!is.function(S2)) stop(paste("S2 must be a specified as a function"))
+  if (!is.function(S1)) stop(paste("S1 must be specified as a function"))
+  if (!is.function(S2)) stop(paste("S2 must be specified as a function"))
   
   # ICS
   object <- tryCatch({
@@ -217,7 +219,7 @@ ICS_outlier <- function(X,
         center = TRUE, fix_signs = "scores")
   },
   warning = function(w) stop(w),
-  error = function(e) e)
+  error = function(e) stop(e))
   rownames(object$scores) <- rownames(X)
   
   row_names <- rownames(object$scores)
@@ -307,7 +309,7 @@ ICS_outlier <- function(X,
 }
 
 
-#'  Summary of an 'ICSOut' object
+#'  Summary of an 'ICSOut' Object
 #'  
 #'  Summarizes an 'ICSOut' object in an informative way.
 #'

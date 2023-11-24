@@ -13,7 +13,7 @@ comp_norm_test(
 )
 }
 \arguments{
-\item{object}{object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions.
+\item{object}{object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.
 The sample size and the dimension of interest are also obtained from the object.}
 
 \item{test}{name of the normality test to be used. Possibilites are \code{"jarque.test"},
@@ -41,7 +41,7 @@ A list containing:
 Identifies invariant coordinates that are non normal using univariate normality tests.
 }
 \details{
-Currently the only available \code{type} is \code{"smallprop"} which detects which of the components follow a univariately normal distribution. It starts from the first component and stops when a component is detected as gaussian. Five tests for univariate normality are available. See \code{\link[ICSClust:normal_crit]{ICSClust::normal_crit()}} function for more general cases.
+Currently the only available \code{type} is \code{"smallprop"} which detects which of the components follow a univariately normal distribution. It starts from the first component and stops when a component is detected as gaussian. Five tests for univariate normality are available. See \link[ICSClust:normal_crit]{normal_crit()} function for more general cases.
 
 If \code{adjust = FALSE} all tests are performed at the same \code{level}. This leads however often to too many components. Therefore some multiple testing adjustments might be useful. The current default adjusts the level for the jth component as \code{level}/j.
 
@@ -71,9 +71,9 @@ comp_norm_test(icsZ0, level = 0.01)$index
 Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}.
 }
 \seealso{
-\code{\link[ICS:ICS-S3]{ICS::ICS()}}, \code{\link[=comp_simu_test]{comp_simu_test()}}, \code{\link[moments:jarque.test]{moments::jarque.test()}},
-\code{\link[moments:anscombe.test]{moments::anscombe.test()}}, \code{\link[moments:bonett.test]{moments::bonett.test()}}, \code{\link[moments:agostino.test]{moments::agostino.test()}},
-\code{\link[stats:shapiro.test]{stats::shapiro.test()}}
+\link[ICS:ICS-S3]{ICS()}, \code{\link[=comp_simu_test]{comp_simu_test()}}, \link[moments:jarque.test]{jarque.test()},
+\link[moments:anscombe.test]{anscombe.test()}, \link[moments:bonett.test]{bonett.test()}, \link[moments:agostino.test]{bonett.test()},
+\link[stats:shapiro.test]{shapiro.test()}
 }
 \author{
 Aurore Archimbaud and Klaus Nordhausen

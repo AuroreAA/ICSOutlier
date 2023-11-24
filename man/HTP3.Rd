@@ -3,7 +3,7 @@
 \docType{data}
 \name{HTP3}
 \alias{HTP3}
-\title{Production Measurements of High-Tech Parts}
+\title{Production Measurements of High-Tech Parts - Nearly Singular Case}
 \format{
 A data frame with 371 rows and 33 variables V.1 - V.33,
 presenting some approximate collinearity issues which may cause
@@ -25,7 +25,7 @@ returned to the manufacturer by the customer. Therefore this part
 can be considered as outlier.
 }
 \examples{
-# HTP3 data: the observation 32 is considered as outliers
+# HTP3 data: the observation 32 is considered as an outlier
 data("HTP3")
 outliers <- c(32)
 boxplot(HTP3)

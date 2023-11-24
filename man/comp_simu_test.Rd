@@ -22,7 +22,7 @@ comp_simu_test(
 )
 }
 \arguments{
-\item{object}{object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions.
+\item{object}{object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.
 The sample size and the dimension of interest are also obtained from the object.}
 
 \item{S1}{an object of class \code{"ICS_scatter"} or a function that
@@ -70,7 +70,7 @@ Identifies invariant coordinates that are nonnormal using simulations under a st
 }
 \details{
 Based on simulations it detects which of the components follow a univariately normal distribution. More precisely it identifies the observed eigenvalues larger than the ones coming
-from normal distributed data. \code{m} standard normal data sets are simulated using the same data size and scatters as specified in the \code{ics2} object.
+from normal distributed data. \code{m} standard normal data sets are simulated using the same data size and scatters as specified in the \code{"ICS"} object.
 The cut-off values are determined based on a quantile of these simulated eigenvalues.
 
 As the eigenvalues, aka generalized kurtosis values, of ICS are ordered it is natural to perform the comparison in a specific order depending on the purpose.
@@ -80,7 +80,7 @@ If \code{adjust = FALSE} all eigenvalues are compared to the same (\code{1-level
 Therefore some multiple testing adjustment might be useful. The current default adjusts the quantile for the jth component as \code{1-level}/j.
 
 Note that depending on the data size and scatters used this can take a while and so it is more efficient to parallelize computations.
-Note also that the function is seldomly called directly by the user but internally by \code{\link{ics.outlier}}.
+Note also that the function is seldomly called directly by the user but internally by \code{\link[=ICS_outlier]{ICS_outlier()}}.
 }
 \examples{
 # For a real analysis use larger values for m and more cores if available
@@ -119,7 +119,7 @@ comp_simu_test(icsZ, S1 = ICS_cov, S2= ICS_cov4, m = 400, n_cores = 1)
 Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}.
 }
 \seealso{
-\code{\link[ICS:ICS-S3]{ICS::ICS()}}, \code{\link[=comp_norm_test]{comp_norm_test()}}
+\link[ICS:ICS-S3]{ICS()}, \code{\link[=comp_norm_test]{comp_norm_test()}}
 }
 \author{
 Aurore Archimbaud and Klaus Nordhausen

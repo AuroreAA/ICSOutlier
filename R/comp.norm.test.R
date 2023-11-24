@@ -26,7 +26,7 @@ function(object, test = "agostino.test", type = "smallprop", level = 0.05, adjus
 #'
 #' Identifies invariant coordinates that are non normal using univariate normality tests.
 #' 
-#' @param object object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions. 
+#' @param object object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions. 
 #' The sample size and the dimension of interest are also obtained from the object.
 #' @param test name of the normality test to be used. Possibilites are \code{"jarque.test"}, 
 #' \code{"anscombe.test"}, \code{"bonett.test"}, \code{"agostino.test"}, \code{"shapiro.test"}.
@@ -36,7 +36,7 @@ function(object, test = "agostino.test", type = "smallprop", level = 0.05, adjus
 #' @param adjust logical. If \code{TRUE}, the quantiles levels are adjusted. Default is \code{TRUE}. See details.
 #' 
 #' 
-#' @details Currently the only available \code{type} is \code{"smallprop"} which detects which of the components follow a univariately normal distribution. It starts from the first component and stops when a component is detected as gaussian. Five tests for univariate normality are available. See [ICSClust::normal_crit()] function for more general cases. 
+#' @details Currently the only available \code{type} is \code{"smallprop"} which detects which of the components follow a univariately normal distribution. It starts from the first component and stops when a component is detected as gaussian. Five tests for univariate normality are available. See [normal_crit()][ICSClust::normal_crit()] function for more general cases. 
 #' 
 #' If \code{adjust = FALSE} all tests are performed at the same \code{level}. This leads however often to too many components. Therefore some multiple testing adjustments might be useful. The current default adjusts the level for the jth component as \code{level}/j. 
 #' 
@@ -59,9 +59,9 @@ function(object, test = "agostino.test", type = "smallprop", level = 0.05, adjus
 #' @import moments
 #' @importFrom stats shapiro.test
 #' 
-#' @seealso [ICS::ICS()], [comp_simu_test()], [moments::jarque.test()], 
-#' [moments::anscombe.test()], [moments::bonett.test()], [moments::agostino.test()], 
-#'  [stats::shapiro.test()]
+#' @seealso [ICS()][ICS::ICS()], [comp_simu_test()], [jarque.test()][moments::jarque.test()], 
+#' [anscombe.test()][moments::anscombe.test()], [bonett.test()][moments::bonett.test()], [bonett.test()][moments::agostino.test()], 
+#'  [shapiro.test()][stats::shapiro.test()]
 #'
 #' @examples
 #' 

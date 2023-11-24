@@ -73,7 +73,7 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #' 
 #' Identifies invariant coordinates that are nonnormal using simulations under a standard multivariate normal model for a specific data setup and scatter combination.
 #'
-#' @param object object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions. 
+#' @param object object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions. 
 #' The sample size and the dimension of interest are also obtained from the object.
 #' @param S1 an object of class \code{"ICS_scatter"} or a function that 
 #' contains the location vector and scatter matrix as \code{location} and \code{scatter} components.
@@ -93,7 +93,7 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #'
 #' @details 
 #' Based on simulations it detects which of the components follow a univariately normal distribution. More precisely it identifies the observed eigenvalues larger than the ones coming
-#' from normal distributed data. \code{m} standard normal data sets are simulated using the same data size and scatters as specified in the \code{ics2} object.
+#' from normal distributed data. \code{m} standard normal data sets are simulated using the same data size and scatters as specified in the \code{"ICS"} object.
 #' The cut-off values are determined based on a quantile of these simulated eigenvalues. 
 #' 
 #' 
@@ -104,7 +104,7 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #' Therefore some multiple testing adjustment might be useful. The current default adjusts the quantile for the jth component as \code{1-level}/j.
 #' 
 #' Note that depending on the data size and scatters used this can take a while and so it is more efficient to parallelize computations. 
-#' Note also that the function is seldomly called directly by the user but internally by \code{\link{ics.outlier}}.
+#' Note also that the function is seldomly called directly by the user but internally by [ICS_outlier()].
 
 #' @return A list containing:
 #' - `index`:  integer vector indicating the indices of the selected components.
@@ -123,7 +123,7 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #' @references
 #' Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}. 
 #' 
-#' @seealso [ICS::ICS()], [comp_norm_test()]
+#' @seealso [ICS()][ICS::ICS()], [comp_norm_test()]
 #' @import parallel
 #' @import ICS
 #' @importFrom mvtnorm rmvnorm
@@ -175,9 +175,9 @@ comp_simu_test <- function(object,
     # S1 <- get(object$S1_label)
     # S2 <- get(object$S2_label)
     if (!is.function(S1))
-        stop(paste("S1 must be a specified as a function"))
+        stop(paste("S1 must be specified as a function"))
     if (!is.function(S2))
-        stop(paste("S2 must be a specified as a function"))
+        stop(paste("S2 must be specified as a function"))
     type <- match.arg(type, c("smallprop"))
     n <- nrow(object$scores)
     p <- ncol(object$scores)

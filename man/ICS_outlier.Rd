@@ -91,16 +91,17 @@ An object of S3-class 'ICS_Out' which contains:
 }
 }
 \description{
-In a multivariate framework outlier(s) are detected using ICS. The function performs \code{\link[ICS:ICS-S3]{ICS::ICS()}} and decides automatically about the number of invariant components to use to search for the outliers and the number of outliers detected on these components. Currently the function is restricted to the case of searching outliers only on the first components.
+In a multivariate framework outlier(s) are detected using ICS. The function performs \link[ICS:ICS-S3]{ICS()} and decides automatically about the number of invariant components to use to search for the outliers and the number of outliers detected on these components. Currently the function is restricted to the case of searching outliers only on the first components.
 }
 \details{
 The ICS method has attractive properties for outlier detection in the case of a small proportion of outliers. As for PCA three steps have to be performed:(i) select the components most useful for the detection, (ii) compute distances as outlierness measures for all observation and finally (iii) label outliers using some cut-off value.
 
 This function performs these three steps automatically:
-
-(i). For choosing the components of interest two methods are proposed: \code{"norm_test"} based on some marginal normality tests (see details in \code{\link{comp_norm_test}}) or \code{"simulation"} based on a parallel analysis (see details in \code{\link{comp_simu_test}}). These two approaches lie on the intrinsic property of ICS in case of a small proportion of outliers with the choice of S1 "more robust" than S2, which ensures to find outliers on the first components. Indeed  when using \code{S1 = ICS_cov} and \code{S2 = ICS_cov4}, the Invariant Coordinates are ordered according to their classical Pearson kurtosis values in decreasing order. The information to find the outliers should be then contained in the first k non-normal directions.
-(ii). Then the ICS distances are computed as the Euclidean distances on the selected k centered components \eqn{Z_k}.
-(iii). Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
+\itemize{
+\item For choosing the components of interest two methods are proposed: \code{"norm_test"} based on some marginal normality tests (see details in \code{\link{comp_norm_test}}) or \code{"simulation"} based on a parallel analysis (see details in \code{\link{comp_simu_test}}). These two approaches lie on the intrinsic property of ICS in case of a small proportion of outliers with the choice of S1 "more robust" than S2, which ensures to find outliers on the first components. Indeed  when using \code{S1 = ICS_cov} and \code{S2 = ICS_cov4}, the Invariant Coordinates are ordered according to their classical Pearson kurtosis values in decreasing order. The information to find the outliers should be then contained in the first k non-normal directions.
+\item Then the ICS distances are computed as the Euclidean distances on the selected k centered components \eqn{Z_k}.
+\item Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
+}
 
 As a rule of thumb, the percentage of contamination should be limited to 10\\% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
 }
@@ -159,7 +160,7 @@ rm(.Random.seed)
 Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}.
 }
 \seealso{
-\code{\link[ICS:ICS-S3]{ICS::ICS()}}, \code{\link[=comp_norm_test]{comp_norm_test()}}, \code{\link[=comp_simu_test]{comp_simu_test()}},
+\link[ICS:ICS-S3]{ICS()}, \code{\link[=comp_norm_test]{comp_norm_test()}}, \code{\link[=comp_simu_test]{comp_simu_test()}},
 \code{\link[=dist_simu_test]{dist_simu_test()}} and
 \code{\link[=print]{print()}}, \code{\link[=plot]{plot()}},\code{\link[=summary]{summary()}} methods
 }

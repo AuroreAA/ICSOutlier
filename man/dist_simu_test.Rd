@@ -21,7 +21,7 @@ dist_simu_test(
 )
 }
 \arguments{
-\item{object}{object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions.
+\item{object}{object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.
 The sample size and the dimension of interest are also obtained from the object.}
 
 \item{S1}{an object of class \code{"ICS_scatter"} or a function that
@@ -57,7 +57,7 @@ A vector with the values of the (1-\code{level})th quantile.
 Computes the cut-off values for the identification of the outliers based on the squared ICS distances. It uses simulations under a multivariate standard normal model for a specific data setup and scatters combination.
 }
 \details{
-The function extracts basically the dimension of the data from the \code{ics2} object and simulates \code{m} times, from a multivariate standard normal distribution, the squared ICS distances with the components specified in \code{index}. The resulting value is then the mean of the \code{m} correponding quantiles of these distances  at level 1-\code{level}.
+The function extracts basically the dimension of the data from the \code{"ICS"} object and simulates \code{m} times, from a multivariate standard normal distribution, the squared ICS distances with the components specified in \code{index}. The resulting value is then the mean of the \code{m} correponding quantiles of these distances  at level 1-\code{level}.
 
 Note that depending on the data size and scatters used this can take a while and so it is more efficient to parallelize computations.
 
@@ -124,7 +124,7 @@ text(outliers, ics.dist.scree[outliers], outliers, pos = 2, cex = 0.9)
 Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}.
 }
 \seealso{
-\code{\link[ICS:ICS-S3]{ICS::ICS()}}, \code{\link[=ics_distances]{ics_distances()}}
+\link[ICS:ICS-S3]{ICS()}, \code{\link[=ics_distances]{ics_distances()}}
 }
 \author{
 Aurore Archimbaud and Klaus Nordhausen

@@ -7,7 +7,7 @@
 ics_distances(object, index = NULL)
 }
 \arguments{
-\item{object}{object of class 'ICS' where both \code{S1} and \code{S2} are specified as functions.}
+\item{object}{object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.}
 
 \item{index}{vector of integers indicating the indices of the components to select.}
 }
@@ -18,7 +18,7 @@ A numeric vector containing the squared ICS distances.
 Squared ICS Distances for Invariant Coordinates
 }
 \details{
-For outlier detection, the squared ICS distances can be used as a measure of outlierness. Denote as \eqn{Z} the invariant coordinates centered with the location estimate specified in \code{S1} (for details see \code{\link{ics2}}). Let \eqn{Z_k} be the \eqn{k} components of \eqn{Z} selected by \code{index}, then the ICS distance of the observation \eqn{i}  is defined as:     \deqn{ICSD^2(x_i,k) = || Z_k||^2.}{ICSD^2(x_i,k) = || Z_k||^2.}
+For outlier detection, the squared ICS distances can be used as a measure of outlierness. Denote as \eqn{Z} the invariant coordinates centered with the location estimate specified in \code{S1} (for details see \link[ICS:ICS-S3]{ICS()}). Let \eqn{Z_k} be the \eqn{k} components of \eqn{Z} selected by \code{index}, then the ICS distance of the observation \eqn{i}  is defined as:     \deqn{ICSD^2(x_i,k) = || Z_k||^2.}{ICSD^2(x_i,k) = || Z_k||^2.}
 
 Note that if all components are selected, the ICS distances are equivalent to the Mahalanobis distances computed with respect of the first scatter and associated location specified in \code{S1}.
 }
@@ -44,7 +44,7 @@ plot(icsX.dist.first)
 Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate outlier detection with application to quality control. Computational Statistics & Data Analysis, 128:184-199. ISSN 0167-9473.  \doi{10.1016/j.csda.2018.06.011}.
 }
 \seealso{
-\code{\link[ICS:ICS-S3]{ICS::ICS()}}, \code{\link[=mahalanobis]{mahalanobis()}}
+\link[ICS:ICS-S3]{ICS()}, \code{\link[=mahalanobis]{mahalanobis()}}
 }
 \author{
 Aurore Archimbaud and Klaus Nordhausen
