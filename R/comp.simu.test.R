@@ -1,72 +1,72 @@
 #' @export
 comp.simu.test <- function(object, m = 10000, type = "smallprop",
-level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qtype = 7, ...)
-    {
-    if (!inherits(object, "ics2"))
-        stop("'object' must be of class ics2")
-    S1 <- get(object@S1name)
-    S2 <- get(object@S2name)
-    if (!is.function(S1))
-        stop(paste("S1 in '", S1, ", must be a specified as a function"))
-    if (!is.function(S2))
-        stop(paste("S2 in '", S2, ", must be a specified as a function"))
-    type <- match.arg(type, c("smallprop"))
-    n <- nrow(object@Scores)
-    p <- ncol(object@Scores)
-    MEAN <- rep(0, p)
+                           level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qtype = 7, ...)
+{
+  if (!inherits(object, "ics2"))
+    stop("'object' must be of class ics2")
+  S1 <- get(object@S1name)
+  S2 <- get(object@S2name)
+  if (!is.function(S1))
+    stop(paste("S1 in '", S1, ", must be a specified as a function"))
+  if (!is.function(S2))
+    stop(paste("S2 in '", S2, ", must be a specified as a function"))
+  type <- match.arg(type, c("smallprop"))
+  n <- nrow(object@Scores)
+  p <- ncol(object@Scores)
+  MEAN <- rep(0, p)
+  
+  if(!is.null(ncores) && ncores > 1){
     
-     if(!is.null(ncores) && ncores > 1){
     
+    if(is.null(iseed)){
+      if (exists(".Random.seed", envir=globalenv())){
+        oldseed <- get(".Random.seed", envir=globalenv())
+        rm(.Random.seed, envir=globalenv())
+        on.exit(assign(".Random.seed", oldseed, envir=globalenv()))
+      }
+    }
     
-       if(is.null(iseed)){
-                if (exists(".Random.seed", envir=globalenv())){
-                       oldseed <- get(".Random.seed", envir=globalenv())
-                       rm(.Random.seed, envir=globalenv())
-                       on.exit(assign(".Random.seed", oldseed, envir=globalenv()))
-                        }
-                    }
-
     ctype <-  "PSOCK"
     cl <- makeCluster(ncores, type=ctype)
     clusterExport(cl, c("n","m","MEAN","S1","S2","object", "pkg", "iseed"), envir = environment())
     clusterEvalQ(cl, lapply(pkg, require,character.only = TRUE))
     clusterSetRNGStream(cl = cl, iseed = iseed)
     
-         EV <- parSapply(cl, 1:m, function(i,...) {
-                  ics2(rmvnorm(n, MEAN), S1 = S1, S2 = S2,
-        S1args = object@S1args, S2args = object@S2args)@gKurt } )
+    EV <- parSapply(cl, 1:m, function(i,...) {
+      ics2(rmvnorm(n, MEAN), S1 = S1, S2 = S2,
+           S1args = object@S1args, S2args = object@S2args)@gKurt } )
     stopCluster(cl)
     
-    } else {
+  } else {
     
-     EV <- replicate(m, ics2(rmvnorm(n, MEAN), S1 = S1, S2 = S2,
-        S1args = object@S1args, S2args = object@S2args)@gKurt)
-    }
-
-    if (adjust == TRUE) {
-        levels <- level/1:p
-    }
-    else {
-        levels <- rep(level, p)
-    }
-    EV.quantile <- numeric(p)
-    for (i in 1:p) {
-        EV.quantile[i] <- quantile(EV[i, ], probs = 1 - levels[i], type = qtype,
-            ...)
-    }
-    decisions <- (object@gKurt > EV.quantile)
-    k <- match(FALSE, decisions) - 1
-    if (is.na(k)) {
-        index <- 1:p
-    }
-    else {
-        if (k == 0)
-            index <- 0
-        else index <- 1:k
-    }
-    RES <- list(index = index, test = "simulation", criterion = EV.quantile,
-        levels = levels, adjust = adjust, type = type, m = m)
-    RES
+    EV <- replicate(m, ics2(rmvnorm(n, MEAN), S1 = S1, S2 = S2,
+                            S1args = object@S1args, S2args = object@S2args)@gKurt)
+  }
+  
+  if (adjust == TRUE) {
+    levels <- level/1:p
+  }
+  else {
+    levels <- rep(level, p)
+  }
+  EV.quantile <- numeric(p)
+  for (i in 1:p) {
+    EV.quantile[i] <- quantile(EV[i, ], probs = 1 - levels[i], type = qtype,
+                               ...)
+  }
+  decisions <- (object@gKurt > EV.quantile)
+  k <- match(FALSE, decisions) - 1
+  if (is.na(k)) {
+    index <- 1:p
+  }
+  else {
+    if (k == 0)
+      index <- 0
+    else index <- 1:k
+  }
+  RES <- list(index = index, test = "simulation", criterion = EV.quantile,
+              levels = levels, adjust = adjust, type = type, m = m)
+  RES
 }
 
 #' Selection of Nonnormal Invariant Components Using Simulations
@@ -151,7 +151,8 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #'   library(ICSClust)
 #'         icsZmcd <- ICS(Z, S1 = ICS_mcd_raw, S2 = ICS_cov, S1_args = list(alpha = 0.75))
 #'         # For demo purpose only small m value, should select the first component
-#'         comp_simu_test(icsZmcd, S1 = ICS_mcd_raw, S2 = ICS_cov, S1_args = list(alpha = 0.75),
+#'         comp_simu_test(icsZmcd, S1 = ICS_mcd_raw, S2 = ICS_cov, 
+#'         S1_args = list(alpha = 0.75, location = TRUE),
 #'          m = 500, ncores = detectCores()-1, 
 #'                     pkg = c("ICSOutlier", "ICSClust"), iseed = 123)
 #'  }
@@ -162,107 +163,115 @@ level = 0.05, adjust = TRUE, ncores = NULL, iseed = NULL, pkg = "ICSOutlier", qt
 #'  # Should select no component
 #'  comp_simu_test(icsZ0,S1 = ICS_cov, S2 = ICS_cov4, m = 400, level = 0.01, n_cores = 1)
 comp_simu_test <- function(object,
-                            S1 = NULL,
-                            S2 = NULL,
-                            S1_args = list(),
-                            S2_args = list(), m = 10000, type = "smallprop",
+                           S1 = NULL,
+                           S2 = NULL,
+                           S1_args = list(),
+                           S2_args = list(), m = 10000, type = "smallprop",
                            level = 0.05, adjust = TRUE, n_cores = NULL, 
                            iseed = NULL, pkg = "ICSOutlier", q_type = 7, ...)
 {
-    if (!inherits(object, "ICS"))
-        stop("'object' must be of class 'ICS'")
-
-    # S1 <- get(object$S1_label)
-    # S2 <- get(object$S2_label)
-    if (!is.function(S1))
-        stop(paste("S1 must be specified as a function"))
-    if (!is.function(S2))
-        stop(paste("S2 must be specified as a function"))
-    type <- match.arg(type, c("smallprop"))
-    n <- nrow(object$scores)
-    p <- ncol(object$scores)
-    mean_vec <- rep(0, p)
-    
-    if (!is.null(n_cores) && n_cores > 1) {
-        if (is.null(iseed)) {
-            if (exists(".Random.seed", envir = globalenv())) {
-                oldseed <- get(".Random.seed", envir = globalenv())
-                rm(.Random.seed, envir = globalenv())
-                on.exit(assign(".Random.seed", oldseed, envir = globalenv()))
-            }
-        }
-        
-        ctype <-  "PSOCK"
-        cl <- makeCluster(n_cores, type = ctype)
-        clusterExport(cl,
-                      c("n", "m", "mean_vec", "S1", "S2", 
-                        "S1_args", "S2_args",
-                        "pkg", "iseed"),
-                      envir = environment())
-        clusterEvalQ(cl, lapply(pkg, require, character.only = TRUE))
-        clusterSetRNGStream(cl = cl, iseed = iseed)
-        
-        EV <- parSapply(cl, 1:m, function(i, ...) {
-            ICS(
-                rmvnorm(n, mean_vec),
-                S1 = S1,
-                S2 = S2,
-                S1_args = S1_args,
-                S2_args = S2_args,
-                center = TRUE,
-                fix_signs = "scores"
-            )$gen_kurtosis
-        })
-        stopCluster(cl)
-        
-    } else {
-        EV <- replicate(
-            m,
-            ICS(
-                rmvnorm(n, mean_vec),
-                S1 = S1,
-                S2 = S2,
-                S1_args = S1_args,
-                S2_args = S2_args,
-                center = TRUE,
-                fix_signs = "scores"
-            )$gen_kurtosis
-        )
+  if (!inherits(object, "ICS"))
+    stop("'object' must be of class 'ICS'")
+  
+  # S1 <- get(object$S1_label)
+  # S2 <- get(object$S2_label)
+  if (!is.function(S1))
+    stop(paste("S1 must be specified as a function"))
+  if (!is.function(S2))
+    stop(paste("S2 must be specified as a function"))
+  type <- match.arg(type, c("smallprop"))
+  n <- nrow(object$scores)
+  p <- ncol(object$scores)
+  mean_vec <- rep(0, p)
+  
+  if (!is.null(n_cores) && n_cores > 1) {
+    if (is.null(iseed)) {
+      if (exists(".Random.seed", envir = globalenv())) {
+        oldseed <- get(".Random.seed", envir = globalenv())
+        rm(.Random.seed, envir = globalenv())
+        on.exit(assign(".Random.seed", oldseed, envir = globalenv()))
+      }
     }
     
-    if (adjust == TRUE) {
-        levels <- level / 1:p
-    }
-    else {
-        levels <- rep(level, p)
-    }
-    EV.quantile <- numeric(p)
-    for (i in 1:p) {
-        EV.quantile[i] <-
-            quantile(EV[i,], probs = 1 - levels[i], type = q_type,
-                     ...)
-    }
-    decisions <- (object$gen_kurtosis > EV.quantile)
-    k <- match(FALSE, decisions) - 1
-    if (is.na(k)) {
-        index <- 1:p
-    }
-    else {
-        if (k == 0)
-            index <- 0
-        else
-            index <- 1:k
-    }
-    res <-
-        list(
-            index = index,
-            test = "simulation",
-            criterion = EV.quantile,
-            levels = levels,
-            adjust = adjust,
-            type = type,
-            m = m
-        )
-    res
+    ctype <-  "PSOCK"
+    cl <- makeCluster(n_cores, type = ctype)
+    clusterExport(cl,
+                  c("n", "m", "mean_vec", "S1", "S2", 
+                    "S1_args", "S2_args",
+                    "pkg", "iseed"),
+                  envir = environment())
+    clusterEvalQ(cl, lapply(pkg, require, character.only = TRUE))
+    clusterSetRNGStream(cl = cl, iseed = iseed)
+    
+    EV <- parSapply(cl, 1:m, function(i, ...) {
+      tryCatch({
+        ICS(
+          rmvnorm(n, mean_vec),
+          S1 = S1,
+          S2 = S2,
+          S1_args = S1_args,
+          S2_args = S2_args,
+          center = TRUE,
+          fix_signs = "scores"
+        )$gen_kurtosis
+      },
+      warning = function(w) stop(w),
+      error = function(e) stop(e))
+    })
+    stopCluster(cl)
+    
+  } else {
+    EV <- replicate(
+      m,
+      tryCatch({
+        ICS(
+          rmvnorm(n, mean_vec),
+          S1 = S1,
+          S2 = S2,
+          S1_args = S1_args,
+          S2_args = S2_args,
+          center = TRUE,
+          fix_signs = "scores"
+        )$gen_kurtosis
+      },
+      warning = function(w) stop(w),
+      error = function(e) stop(e))
+    )
+  }
+  
+  if (adjust == TRUE) {
+    levels <- level / 1:p
+  }
+  else {
+    levels <- rep(level, p)
+  }
+  EV.quantile <- numeric(p)
+  for (i in 1:p) {
+    EV.quantile[i] <-
+      quantile(EV[i,], probs = 1 - levels[i], type = q_type,
+               ...)
+  }
+  decisions <- (object$gen_kurtosis > EV.quantile)
+  k <- match(FALSE, decisions) - 1
+  if (is.na(k)) {
+    index <- 1:p
+  }
+  else {
+    if (k == 0)
+      index <- 0
+    else
+      index <- 1:k
+  }
+  res <-
+    list(
+      index = index,
+      test = "simulation",
+      criterion = EV.quantile,
+      levels = levels,
+      adjust = adjust,
+      type = type,
+      m = m
+    )
+  res
 }
 

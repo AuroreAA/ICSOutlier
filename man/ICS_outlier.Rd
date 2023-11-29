@@ -103,7 +103,7 @@ This function performs these three steps automatically:
 \item Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
 }
 
-As a rule of thumb, the percentage of contamination should be limited to 10\\% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
+As a rule of thumb, the percentage of contamination should be limited to 10\% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
 }
 \examples{
 # ReliabilityData example: the observations 414 and 512 are suspected to be outliers  
@@ -162,7 +162,7 @@ Archimbaud, A., Nordhausen, K. and Ruiz-Gazen, A. (2018), ICS for multivariate o
 \seealso{
 \link[ICS:ICS-S3]{ICS()}, \code{\link[=comp_norm_test]{comp_norm_test()}}, \code{\link[=comp_simu_test]{comp_simu_test()}},
 \code{\link[=dist_simu_test]{dist_simu_test()}} and
-\code{\link[=print]{print()}}, \code{\link[=plot]{plot()}},\code{\link[=summary]{summary()}} methods
+\link[=print.ICS_Out]{print()}, \link[=plot.ICS_Out]{plot()}, \link[=summary.ICS_Out]{summary()} methods
 }
 \author{
 Aurore Archimbaud and Klaus Nordhausen

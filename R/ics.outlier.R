@@ -102,7 +102,7 @@ ics.outlier <-
 #' 
 #' - Finally the outliers are identified based on a cut-off derived from simulations. If the distance of an observation exceeds the expectation under the normal model, this observation is labeled as outlier (see details in \code{\link{dist_simu_test}}).
 #' 
-#' As a rule of thumb, the percentage of contamination should be limited to 10\% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
+#' As a rule of thumb, the percentage of contamination should be limited to 10% in case of a mixture of gaussian distributions and using the default combination of locations and scatters for ICS.
 #' 
 #'
 #' @return 
@@ -134,7 +134,7 @@ ics.outlier <-
 #' 
 #' @seealso [ICS()][ICS::ICS()], [comp_norm_test()], [comp_simu_test()],
 #' [dist_simu_test()] and 
-#' [print()], [plot()],[summary()] methods
+#' [print()][print.ICS_Out()], [plot()][plot.ICS_Out()], [summary()][summary.ICS_Out()] methods
 #'
 #' @examples
 #' # ReliabilityData example: the observations 414 and 512 are suspected to be outliers  
@@ -304,21 +304,21 @@ ICS_outlier <- function(X,
               S1_label = object$S1_label, 
               S2_label = object$S2_label)
   
-  class(res) <- "ICSOut"
+  class(res) <- "ICS_Out"
   res
 }
 
 
-#'  Summary of an 'ICSOut' Object
+#'  Summary of an 'ICS_Out' Object
 #'  
-#'  Summarizes an 'ICSOut' object in an informative way.
+#'  Summarizes an 'ICS_Out' object in an informative way.
 #'
 #'
-#' @param object object object of class `"ICSOut"`.
+#' @param object object object of class `"ICS_Out"`.
 #' @param ... additional arguments passed to [summary()]
 #'
 #'
-#' @return An object of class `"ICSOut_summary"` with the following components:
+#' @return An object of class `"ICS_Out_summary"` with the following components:
 #' - `comps`: Vector giving the indices of the ICS components selected.
 #' - `method`: Name of the method used to decide upon the number of ICS components.
 #' - `test`: he name of the normality test as specified in the function call.
@@ -330,10 +330,11 @@ ICS_outlier <- function(X,
 #' 
 #' @export
 #' 
-#' @name summary.ICSOut
-#' @method summary ICSOut
+#' @name summary.ICS_Out
+#' @method summary ICS_Out
 #' @author Aurore Archimbaud and Klaus Nordhausen
-summary.ICSOut <- function(object, ...) {
+#' 
+summary.ICS_Out <- function(object, ...) {
   out <- list(comps = object$index,
               method = object$method,
               test = object$test,
@@ -344,23 +345,23 @@ summary.ICSOut <- function(object, ...) {
               nb_outliers = sum(object$outliers)
   )
   
-  class(out) <- "ICSOut_summary"
+  class(out) <- "ICS_Out_summary"
   out
 }
 
-#' Print of an `ICSOut_summary` object
+#' Print of an `ICS_Out_summary` object
 #'
-#' Prints an `ICSOut_summary` object in an informative way.
+#' Prints an `ICS_Out_summary` object in an informative way.
 #' 
-#' @param x object of class `"ICSOut_summary"`.
+#' @param x object of class `"ICS_Out_summary"`.
 #' @param ...  additional arguments, not used.
 #'
-#' @return The supplied object of class `"ICSOut_summary"` is returned invisibly.
-#' @export
-#' @name print.ICSOut_summary
-#' @method print ICSOut_summary
+#' @return The supplied object of class `"ICS_Out_summary"` is returned invisibly.
+#' @noRd
+#' @name print.ICS_Out_summary
+#' @method print ICS_Out_summary
 #' @author Aurore Archimbaud and Klaus Nordhausen
-print.ICSOut_summary <-  function(x,  ...) {
+print.ICS_Out_summary <-  function(x,  ...) {
   if (sum(x$comps) < 0.5)
     ncomps <- 0
   else
@@ -403,16 +404,16 @@ print.ICSOut_summary <-  function(x,  ...) {
 #' 
 #'  Short statement about how many components are selected for the outlier detection and how many outliers are detected.
 #'
-#' @param x object object of class `"ICSOut"`.
+#' @param x object object of class `"ICS_Out"`.
 #' @param ... additional arguments, not used.
 #'
-#' @return The supplied object of class `"ICSOut_summary"` is returned invisibly.
+#' @return The supplied object of class `"ICS_Out_summary"` is returned invisibly.
 #' @export
-#' @name print.ICSOut
-#' @method print ICSOut
+#' @name print.ICS_Out
+#' @method print ICS_Out
 #' @author Aurore Archimbaud and Klaus Nordhausen
 #'
-print.ICSOut <- function(x, ...)
+print.ICS_Out <- function(x, ...)
 {
   comps <- x$index
   if (sum(comps) < 0.5) {
@@ -427,11 +428,11 @@ print.ICSOut <- function(x, ...)
 }
 
 
-#' Distances Plot for an 'ICSOut' Object
+#' Distances Plot for an 'ICS_Out' Object
 #' 
-#'  Distances plot for an 'ICSOut' object visualizing the separation of the outliers from the good data points.
+#'  Distances plot for an 'ICS_Out' object visualizing the separation of the outliers from the good data points.
 #'
-#' @param x object of class `"ICSOut"`.
+#' @param x object of class `"ICS_Out"`.
 #' @param pch.out plotting symbol for the outliers.
 #' @param pch.good plotting symbol for the 'good' data points.
 #' @param col.out color for the outliers.
@@ -453,9 +454,9 @@ print.ICSOut <- function(x, ...)
 #' @importFrom methods hasArg new 
 #' @author Aurore Archimbaud and Klaus Nordhausen
 #' 
-#' @name plot.ICSOut
-#' @method plot ICSOut
-plot.ICSOut <- function(x, pch.out = 16, pch.good = 4, col.out = 1, col.good = grey(0.5), col.cut = 1, 
+#' @name plot.ICS_Out
+#' @method plot ICS_Out
+plot.ICS_Out <- function(x, pch.out = 16, pch.good = 4, col.out = 1, col.good = grey(0.5), col.cut = 1, 
                         lwd.cut = 1, lty.cut = 1, xlab = "Observation Number", ylab = "ICS distances", ...)
 {
   

@@ -126,7 +126,7 @@ dist.simu.test <-
 #' contains the location vector and scatter matrix as \code{location} and \code{scatter} components.
 #' @param S1_args a list containing additional arguments for \code{S1}. 
 #' @param S2_args a list containing additional arguments for \code{S2}. 
-#' @param index integer vector specifying which components are used to compute the  \code{\link{ics.distances}}.
+#' @param index integer vector specifying which components are used to compute the  [ics_distances()].
 #' @param m number of simulations. Note that extreme quantiles are of interest and hence \code{m} should be large. 
 #' @param level the (1-\code{level}(s))th quantile(s) used to choose the cut-off value(s). Usually just one number between 0 and 1. However a vector is also possible.
 #' @param n_cores number of cores to be used. If \code{NULL} or 1, no parallel computing is used. Otherwise \link[parallel]{makeCluster} with \code{type = "PSOCK"} is used.

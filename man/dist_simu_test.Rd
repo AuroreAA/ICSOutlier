@@ -34,7 +34,7 @@ contains the location vector and scatter matrix as \code{location} and \code{sca
 
 \item{S2_args}{a list containing additional arguments for \code{S2}.}
 
-\item{index}{integer vector specifying which components are used to compute the  \code{\link{ics.distances}}.}
+\item{index}{integer vector specifying which components are used to compute the  \code{\link[=ics_distances]{ics_distances()}}.}
 
 \item{m}{number of simulations. Note that extreme quantiles are of interest and hence \code{m} should be large.}
 

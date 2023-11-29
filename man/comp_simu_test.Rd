@@ -104,7 +104,8 @@ comp_simu_test(icsZ, S1 = ICS_cov, S2= ICS_cov4, m = 400, n_cores = 1)
   library(ICSClust)
         icsZmcd <- ICS(Z, S1 = ICS_mcd_raw, S2 = ICS_cov, S1_args = list(alpha = 0.75))
         # For demo purpose only small m value, should select the first component
-        comp_simu_test(icsZmcd, S1 = ICS_mcd_raw, S2 = ICS_cov, S1_args = list(alpha = 0.75),
+        comp_simu_test(icsZmcd, S1 = ICS_mcd_raw, S2 = ICS_cov, 
+        S1_args = list(alpha = 0.75, location = TRUE),
          m = 500, ncores = detectCores()-1, 
                     pkg = c("ICSOutlier", "ICSClust"), iseed = 123)
  }
