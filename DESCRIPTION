@@ -26,7 +26,7 @@ Suggests:
     ICSClust,
     REPPlab,
     testthat (>= 3.0.0)
-Description: Multivariate outlier detection is performed using invariant coordinates where the package offers different methods to choose the appropriate components. ICS is a general multivariate technique with many applications in multivariate analysis. ICSOutlier offers a selection of functions for automated detection of outliers in the data based on a fitted ICS object or by specifying the dataset and the scatters of interest. The current implementation targets data sets with only a small percentage of outliers. See ICSClust package for more general cases. 
+Description: Multivariate outlier detection is performed using invariant coordinates where the package offers different methods to choose the appropriate components. ICS is a general multivariate technique with many applications in multivariate analysis. ICSOutlier offers a selection of functions for automated detection of outliers in the data based on a fitted ICS object or by specifying the dataset and the scatters of interest. The current implementation targets data sets with only a small percentage of outliers. 
 License: GPL (>= 2)
 NeedsCompilation: no
 Packaged: 2023-09-18 08:47:44 UTC; admin
