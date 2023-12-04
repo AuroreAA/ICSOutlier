@@ -22,7 +22,8 @@ dist_simu_test(
 }
 \arguments{
 \item{object}{object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions.
-The sample size and the dimension of interest are also obtained from the object.}
+The sample size and the dimension of interest are also obtained from the object.
+The invariant coordinate are required to be centered.}
 
 \item{S1}{an object of class \code{"ICS_scatter"} or a function that
 contains the location vector and scatter matrix as \code{location} and \code{scatter} components.}

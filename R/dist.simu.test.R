@@ -120,6 +120,7 @@ dist.simu.test <-
 #'
 #' @param object object of class \code{"ICS"} where both \code{S1} and \code{S2} are specified as functions. 
 #' The sample size and the dimension of interest are also obtained from the object.
+#' The invariant coordinate are required to be centered.
 #' @param S1 an object of class \code{"ICS_scatter"} or a function that 
 #' contains the location vector and scatter matrix as \code{location} and \code{scatter} components.
 #' @param S2 an object of class \code{"ICS_scatter"} or a function that 
