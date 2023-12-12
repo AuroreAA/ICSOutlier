@@ -35,7 +35,7 @@ out <- ICS_outlier(HTP2, ICS_algorithm = "QR",
                    method = "norm_test",
                    test = "agostino.test", level_test = 0.05,
                    level_dist = 0.01, n_dist = 50)
-}
+
 # Here there is a singularity issue. One solution is to first reduce the 
 # dimension. To ensure higher numerical stability of the subsequent methods
 # we suggest to permute the data and to use the QR decomposition instead of
@@ -98,6 +98,7 @@ level_dist = 0.01, n_dist = 50)
 summary(out)
 plot(out)
 text(outliers, out$ics_distances[outliers], outliers, pos = 2, cex = 0.9, col = 2)
+}
 
 }
 \references{

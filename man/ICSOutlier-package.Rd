@@ -3,6 +3,7 @@
 \docType{package}
 \name{ICSOutlier-package}
 \alias{ICSOutlier-package}
+\alias{ICSOutlier}
 \title{\packageTitle{ICSOutlier}}
 \description{
 \packageDescription{ICSOutlier}

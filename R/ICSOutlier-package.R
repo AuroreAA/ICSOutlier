@@ -1,4 +1,5 @@
 #' @name ICSOutlier-package
+#' @aliases ICSOutlier-package ICSOutlier
 #'
 #' @docType package
 #'
